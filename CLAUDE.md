@@ -15,9 +15,9 @@ python3 -m http.server 8000      # then visit http://localhost:8000
 
 Three files, no framework, no bundler:
 
-- **`index.html`** — DOM structure: `<canvas id="board">` (300×600px) for the playfield, `<canvas id="next-canvas">` (120×120px) for the preview, sidebar HUD (`#score`, `#lines`, `#level`), and a shared overlay `#overlay` for both PAUSE and GAME OVER states.
+- **`index.html`** — DOM structure: `<canvas id="board">` (300×600px) for the playfield, `<canvas id="next-canvas">` (120×120px) for the preview, sidebar HUD (`#score`, `#lines`, `#level`), overlay `#overlay` for the GAME OVER state, and a separate overlay `#pause-overlay` for the pause menu (Reanudar / Reiniciar / Ver controles / selector de nivel inicial, with a controls sub-view).
 - **`style.css`** — Dark/retro arcade theme; uses CSS variables, flexbox, and `backdrop-filter` on overlays.
-- **`game.js`** — All game logic (~305 lines, `'use strict'`, no modules).
+- **`game.js`** — All game logic (`'use strict'`, no modules).
 
 ### game.js internals
 
@@ -33,6 +33,7 @@ Three files, no framework, no bundler:
 | Speed | `dropInterval = max(100, 1000 − (level−1) × 90)` ms; level = `floor(lines/10) + 1` |
 | Ghost piece | `ghostY()` — projects current piece down until collision; drawn at `globalAlpha = 0.2` |
 | State flags | `paused`, `gameOver`, `animId` (RAF handle) |
+| Pause menu | `togglePause()` (bound to `P`/`Escape`) shows `#pause-overlay`, blocking game input via the existing `paused` guard; `showPauseMainView()`/`showPauseControlsView()` toggle its sub-views; `startLevel` (persisted in `localStorage['tetris-start-level']`, capped by `MAX_START_LEVEL`) sets the level `init()` starts at |
 
 ### Game flow
 
