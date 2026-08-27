@@ -198,8 +198,10 @@ function applySkinClass(name) {
 function forceRedraw() {
   // game.js define draw()/drawNext() de forma global; si aún no se ha
   // cargado (p. ej. esta función se invoca antes de tiempo), no hacemos nada.
-  if (typeof draw === 'function') draw();
-  if (typeof drawNext === 'function') drawNext();
+  // Además, antes del primer init() (pantalla de inicio de scores.js) board/
+  // current/next todavía no existen, así que draw()/drawNext() lanzarían.
+  if (typeof draw === 'function' && board && current) draw();
+  if (typeof drawNext === 'function' && next) drawNext();
 }
 
 function setSkin(name) {
