@@ -52,7 +52,7 @@
             <li><kbd>↑</kbd> rotar</li>
             <li><kbd>↓</kbd> bajar</li>
             <li><kbd>Space</kbd> caída</li>
-            <li><kbd>P</kbd> pausa</li>
+            <li><kbd>P</kbd> / <kbd>Esc</kbd> pausa</li>
           </ul>
         </div>
       </aside>
@@ -62,22 +62,48 @@
       <div class="overlay-box">
         <p id="overlay-title">GAME OVER</p>
         <p id="overlay-score"></p>
-        <p id="overlay-stats"></p>
 
-        <div id="new-record-form" class="hidden">
-          <p class="new-record-label">¡NUEVO RECORD! ESCRIBE TU NOMBRE</p>
-          <input id="player-name-input" type="text" maxlength="12" placeholder="TU NOMBRE" autocomplete="off" />
-          <button id="save-score-btn">GUARDAR</button>
+        <div id="gameover-content">
+          <p id="overlay-stats"></p>
+
+          <div id="new-record-form" class="hidden">
+            <p class="new-record-label">¡NUEVO RECORD! ESCRIBE TU NOMBRE</p>
+            <input id="player-name-input" type="text" maxlength="12" placeholder="TU NOMBRE" autocomplete="off" />
+            <button id="save-score-btn">GUARDAR</button>
+          </div>
+
+          <div class="records-panel">
+            <span class="label">TOP 5 RECORDS</span>
+            <div class="scores-table-wrap">
+              <table id="gameover-scores-table" class="scores-table"></table>
+            </div>
+          </div>
+
+          <button id="restart-btn">Reiniciar</button>
         </div>
 
-        <div class="records-panel">
-          <span class="label">TOP 5 RECORDS</span>
-          <div class="scores-table-wrap">
-            <table id="gameover-scores-table" class="scores-table"></table>
+        <div id="pause-menu" class="pause-menu hidden">
+          <div id="pause-main" class="pause-view">
+            <button id="pm-resume-btn" class="pm-btn pm-btn-primary">Reanudar</button>
+            <button id="pm-restart-btn" class="pm-btn">Reiniciar</button>
+            <button id="pm-controls-btn" class="pm-btn">Ver controles</button>
+            <div class="pm-level-select">
+              <label for="pm-level-input">Nivel inicial</label>
+              <select id="pm-level-input"></select>
+            </div>
+          </div>
+
+          <div id="pause-controls" class="pause-view hidden">
+            <ul class="pm-controls-list">
+              <li><kbd>&larr;</kbd><kbd>&rarr;</kbd> mover</li>
+              <li><kbd>&uarr;</kbd> / <kbd>X</kbd> rotar</li>
+              <li><kbd>&darr;</kbd> bajar</li>
+              <li><kbd>Space</kbd> caída</li>
+              <li><kbd>P</kbd> / <kbd>Esc</kbd> pausa</li>
+            </ul>
+            <button id="pm-back-btn" class="pm-btn">Volver</button>
           </div>
         </div>
-
-        <button id="restart-btn">Reiniciar</button>
       </div>
     </div>
 
@@ -100,6 +126,7 @@
 
   <script src="skins.js"></script>
   <script src="scores.js"></script>
+  <script src="menu.js"></script>
   <script src="game.js"></script>
 </body>
 </html>
