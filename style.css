@@ -151,6 +151,86 @@ body {
   transition: background 0.25s, border-color 0.25s;
 }
 
+/* ---- Records ---- */
+.records-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#reset-scores-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--label);
+  font-size: 12px;
+  line-height: 1;
+  padding: 2px 6px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+#reset-scores-btn:hover {
+  color: #e57373;
+  border-color: #e57373;
+}
+
+.highscores-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+}
+
+.highscores-list li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.highscores-list li .rank {
+  color: var(--label);
+  width: 14px;
+  flex-shrink: 0;
+}
+
+.highscores-list li .name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.highscores-list li.highlight {
+  background: rgba(122, 162, 247, 0.18);
+  color: #7aa2f7;
+  font-weight: 700;
+}
+
+.highscores-list .empty {
+  color: var(--controls-text);
+  font-style: italic;
+  font-size: 11px;
+}
+
+.best-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 11px;
+  color: var(--controls-text);
+  transition: color 0.25s;
+}
+
+.best-stats b {
+  color: #7aa2f7;
+}
+
 /* ---- Controles ---- */
 .controls ul {
   list-style: none;
@@ -215,6 +295,50 @@ kbd {
   font-family: 'Courier New', Courier, monospace;
   font-size: 14px;
   color: #7aa2f7;
+}
+
+#name-entry {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+#name-entry.hidden {
+  display: none;
+}
+
+#name-input {
+  width: 120px;
+  background: var(--kbd-bg);
+  border: 1px solid var(--kbd-border);
+  border-radius: 4px;
+  color: var(--text);
+  padding: 6px 8px;
+  font-size: 13px;
+  font-family: inherit;
+  text-align: center;
+}
+
+#name-input:focus {
+  outline: none;
+  border-color: #7aa2f7;
+}
+
+#save-score-btn {
+  background: #7aa2f7;
+  color: #0f0f17;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: background 0.15s;
+}
+
+#save-score-btn:hover {
+  background: #9bbdff;
 }
 
 #restart-btn {
