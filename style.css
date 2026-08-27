@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+.hidden {
+  display: none !important;
+}
+
 :root {
   --bg: #0f0f17;
   --text: #e0e0e0;
@@ -222,6 +226,91 @@ kbd {
   transition: background 0.25s, color 0.25s, border-color 0.25s;
 }
 
+/* ---- Records ---- */
+.records-section {
+  gap: 8px;
+}
+
+.records-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+}
+
+.records-list li {
+  display: flex;
+  gap: 6px;
+  color: var(--controls-text);
+  transition: color 0.25s;
+}
+
+.records-list .rec-rank {
+  color: var(--label);
+  width: 14px;
+  flex: none;
+}
+
+.records-list .rec-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.records-list .rec-score {
+  color: #7aa2f7;
+  font-weight: 700;
+}
+
+.records-list .records-empty {
+  color: var(--label);
+  font-style: italic;
+}
+
+.records-list .records-highlight,
+.records-list .records-highlight .rec-rank {
+  color: #ffd54f;
+}
+
+.records-list .records-highlight .rec-score {
+  color: #ffd54f;
+}
+
+.records-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 11px;
+  color: var(--controls-text);
+  transition: color 0.25s;
+}
+
+.records-stats strong {
+  color: #7aa2f7;
+}
+
+.reset-records-btn {
+  background: transparent;
+  border: 1px solid var(--kbd-border);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--controls-text);
+  cursor: pointer;
+  align-self: flex-start;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.reset-records-btn:hover {
+  border-color: #e57373;
+  color: #e57373;
+}
+
 /* ---- Overlay ---- */
 .overlay {
   position: absolute;
@@ -276,4 +365,56 @@ kbd {
 
 #restart-btn:hover {
   background: #9bbdff;
+}
+
+#new-record-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.new-record-label {
+  font-size: 13px;
+  color: #ffd54f;
+}
+
+#player-name-input {
+  background: var(--kbd-bg);
+  border: 1px solid var(--kbd-border);
+  border-radius: 4px;
+  padding: 6px 10px;
+  font-size: 14px;
+  font-family: 'Courier New', Courier, monospace;
+  color: var(--text);
+  text-align: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  width: 160px;
+}
+
+#player-name-input:focus {
+  outline: none;
+  border-color: #7aa2f7;
+}
+
+#save-record-btn {
+  background: #7aa2f7;
+  color: #0f0f17;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 24px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: background 0.15s;
+}
+
+#save-record-btn:hover {
+  background: #9bbdff;
+}
+
+#overlay-records-list {
+  min-width: 180px;
 }
