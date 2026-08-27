@@ -33,6 +33,7 @@ Three files, no framework, no bundler:
 | Speed | `dropInterval = max(100, 1000 − (level−1) × 90)` ms; level = `floor(lines/10) + 1` |
 | Ghost piece | `ghostY()` — projects current piece down until collision; drawn at `globalAlpha = 0.2` |
 | State flags | `paused`, `gameOver`, `animId` (RAF handle) |
+| Skins | `SKINS` — map of skin name → `{ colors, draw() }`; `currentSkin` selects the active one; `drawBlock()` dispatches to it. Persisted in `localStorage` (`tetris-skin`), applied via `applySkin()` and a `body.skin-*` class (canvas colors in `style.css`) — no reload needed |
 
 ### Game flow
 
@@ -40,4 +41,4 @@ Three files, no framework, no bundler:
 
 ## Tunable constants (top of game.js)
 
-`COLS` (10), `ROWS` (20), `BLOCK` (30 px), `COLORS` (array indexed 1–7), `LINE_SCORES`. If you change `COLS`/`ROWS`/`BLOCK`, update the canvas `width`/`height` attributes in `index.html` to match (`COLS×BLOCK` and `ROWS×BLOCK`).
+`COLS` (10), `ROWS` (20), `BLOCK` (30 px), `SKINS` (each entry's `colors` array indexed 1–8), `LINE_SCORES`. If you change `COLS`/`ROWS`/`BLOCK`, update the canvas `width`/`height` attributes in `index.html` to match (`COLS×BLOCK` and `ROWS×BLOCK`). To add a skin: add an entry to `SKINS` (colors + `draw()`), add its `<option>` in `index.html`'s `#skin-select`, and optionally a `body.skin-<name>` block in `style.css` for the canvas background/border.
