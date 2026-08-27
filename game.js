@@ -4,17 +4,8 @@ const COLS = 10;
 const ROWS = 20;
 const BLOCK = 30;
 
-const COLORS = [
-  null,
-  '#4dd0e1', // I - cyan
-  '#ffd54f', // O - yellow
-  '#ba68c8', // T - purple
-  '#81c784', // S - green
-  '#e57373', // Z - red
-  '#90caf9', // J - pale blue
-  '#ffb74d', // L - orange
-  '#9e9e9e', // N - tuerca (gris metálico)
-];
+// Las paletas de color viven en skins.js (objeto SKINS); drawBlock() delega
+// en la skin activa, así que no se mantiene aquí una constante COLORS propia.
 
 const PIECES = [
   null,
@@ -159,19 +150,15 @@ function updateHUD() {
 }
 
 function drawBlock(context, x, y, colorIndex, size, alpha) {
-  if (!colorIndex) return;
-  const color = COLORS[colorIndex];
-  context.globalAlpha = alpha ?? 1;
-  context.fillStyle = color;
-  context.fillRect(x * size + 1, y * size + 1, size - 2, size - 2);
-  // highlight
-  context.fillStyle = 'rgba(255,255,255,0.12)';
-  context.fillRect(x * size + 1, y * size + 1, size - 2, 4);
-  context.globalAlpha = 1;
+  getActiveSkin().drawBlock(context, x, y, colorIndex, size, alpha);
 }
 
 function drawGrid() {
-  ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue('--grid-line').trim();
+  const skin = getActiveSkin();
+  const gridColor = skin.gridColor || getComputedStyle(document.body).getPropertyValue('--grid-line').trim();
+  ctx.shadowBlur = skin.gridGlow || 0;
+  ctx.shadowColor = skin.gridGlow ? gridColor : 'transparent';
+  ctx.strokeStyle = gridColor;
   ctx.lineWidth = 0.5;
   for (let c = 1; c < COLS; c++) {
     ctx.beginPath();
@@ -185,6 +172,8 @@ function drawGrid() {
     ctx.lineTo(COLS * BLOCK, r * BLOCK);
     ctx.stroke();
   }
+  ctx.shadowBlur = 0;
+  ctx.shadowColor = 'transparent';
 }
 
 function draw() {
