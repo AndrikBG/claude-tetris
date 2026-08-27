@@ -42,7 +42,7 @@ const overlayTitle = document.getElementById('overlay-title');
 const overlayScore = document.getElementById('overlay-score');
 const restartBtn = document.getElementById('restart-btn');
 
-let board, current, next, score, lines, level, paused, gameOver, lastTime, dropAccum, dropInterval, animId;
+let board, current, next, score, lines, level, startLevel, paused, gameOver, lastTime, dropAccum, dropInterval, animId;
 
 function createBoard() {
   return Array.from({ length: ROWS }, () => new Array(COLS).fill(0));
@@ -108,10 +108,15 @@ function clearLines() {
   if (cleared) {
     lines += cleared;
     score += (LINE_SCORES[cleared] || 0) * level;
-    level = Math.floor(lines / 10) + 1;
-    dropInterval = Math.max(100, 1000 - (level - 1) * 90);
+    level = Math.floor(lines / 10) + startLevel;
+    dropInterval = computeDropInterval(level);
     updateHUD();
   }
+}
+
+// Velocidad de caída para un nivel dado (compartida por clearLines() e init()).
+function computeDropInterval(lvl) {
+  return Math.max(100, 1000 - (lvl - 1) * 90);
 }
 
 function ghostY() {
@@ -228,17 +233,19 @@ function endGame() {
   overlay.classList.remove('hidden');
 }
 
+// Nota: togglePause() asume el contrato de carga de scripts documentado en
+// index.html (menu.js antes que game.js), así que window.TetrisMenu siempre
+// existe aquí — no hace falta comprobarlo en cada llamada.
 function togglePause() {
   if (gameOver) return;
   paused = !paused;
   if (!paused) {
     lastTime = performance.now();
     loop(lastTime);
+    window.TetrisMenu.closePauseMenu();
   } else {
     cancelAnimationFrame(animId);
-    overlayTitle.textContent = 'PAUSA';
-    overlayScore.textContent = '';
-    overlay.classList.remove('hidden');
+    window.TetrisMenu.openPauseMenu();
   }
 }
 
@@ -263,10 +270,11 @@ function init() {
   board = createBoard();
   score = 0;
   lines = 0;
-  level = 1;
+  startLevel = window.TetrisMenu.getStartLevel();
+  level = startLevel;
   paused = false;
   gameOver = false;
-  dropInterval = 1000;
+  dropInterval = computeDropInterval(level);
   dropAccum = 0;
   lastTime = performance.now();
   next = randomPiece();
@@ -278,7 +286,20 @@ function init() {
 }
 
 document.addEventListener('keydown', e => {
-  if (e.code === 'KeyP') { togglePause(); return; }
+  if (e.code === 'KeyP' || e.code === 'Escape') {
+    // Dentro de "Ver controles", Escape vuelve al menú principal en vez
+    // de reanudar la partida (isControlsView() solo puede ser true
+    // mientras el juego está pausado, así que no hace falta comprobar
+    // también isMenuOpen() aquí).
+    if (e.code === 'Escape' && window.TetrisMenu.isControlsView()) {
+      window.TetrisMenu.showMainView();
+      return;
+    }
+    togglePause();
+    return;
+  }
+  // El menú de pausa solo puede estar abierto mientras `paused` es true,
+  // así que este chequeo ya cubre también el bloqueo de inputs del menú.
   if (paused || gameOver) return;
   switch (e.code) {
     case 'ArrowLeft':

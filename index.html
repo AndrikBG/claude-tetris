@@ -42,7 +42,7 @@
             <li><kbd>↑</kbd> rotar</li>
             <li><kbd>↓</kbd> bajar</li>
             <li><kbd>Space</kbd> caída</li>
-            <li><kbd>P</kbd> pausa</li>
+            <li><kbd>P</kbd> / <kbd>Esc</kbd> pausa</li>
           </ul>
         </div>
       </aside>
@@ -53,10 +53,34 @@
         <p id="overlay-title">GAME OVER</p>
         <p id="overlay-score"></p>
         <button id="restart-btn">Reiniciar</button>
+
+        <div id="pause-menu" class="pause-menu hidden">
+          <div id="pause-main" class="pause-view">
+            <button id="pm-resume-btn" class="pm-btn pm-btn-primary">Reanudar</button>
+            <button id="pm-restart-btn" class="pm-btn">Reiniciar</button>
+            <button id="pm-controls-btn" class="pm-btn">Ver controles</button>
+            <div class="pm-level-select">
+              <label for="pm-level-input">Nivel inicial</label>
+              <select id="pm-level-input"></select>
+            </div>
+          </div>
+
+          <div id="pause-controls" class="pause-view hidden">
+            <ul class="pm-controls-list">
+              <li><kbd>&larr;</kbd><kbd>&rarr;</kbd> mover</li>
+              <li><kbd>&uarr;</kbd> / <kbd>X</kbd> rotar</li>
+              <li><kbd>&darr;</kbd> bajar</li>
+              <li><kbd>Space</kbd> caída</li>
+              <li><kbd>P</kbd> / <kbd>Esc</kbd> pausa</li>
+            </ul>
+            <button id="pm-back-btn" class="pm-btn">Volver</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
+  <script src="menu.js"></script>
   <script src="game.js"></script>
 </body>
 </html>
