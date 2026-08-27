@@ -192,8 +192,8 @@ kbd {
   transition: background 0.25s;
 }
 
-.overlay.hidden {
-  display: none;
+.hidden {
+  display: none !important;
 }
 
 .overlay-box {
@@ -217,7 +217,7 @@ kbd {
   color: #7aa2f7;
 }
 
-#restart-btn {
+.menu-btn {
   margin-top: 8px;
   background: #7aa2f7;
   color: #0f0f17;
@@ -228,9 +228,79 @@ kbd {
   font-weight: 700;
   cursor: pointer;
   letter-spacing: 1px;
-  transition: background 0.15s;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
 
-#restart-btn:hover {
+.menu-btn:hover {
   background: #9bbdff;
+}
+
+.menu-btn.secondary {
+  background: transparent;
+  border: 1px solid var(--kbd-border);
+  color: var(--text);
+}
+
+.menu-btn.secondary:hover {
+  border-color: #7aa2f7;
+  color: #7aa2f7;
+  background: transparent;
+}
+
+/* ---- Menú de pausa ---- */
+.pause-menu {
+  min-width: 230px;
+}
+
+.overlay-heading {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: #7aa2f7;
+  margin-bottom: 4px;
+}
+
+.pause-view {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.level-select-row {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--controls-text);
+}
+
+.level-select-row select {
+  background: var(--kbd-bg);
+  border: 1px solid var(--kbd-border);
+  color: var(--kbd-text);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+#pause-controls-view ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+#pause-controls-view li {
+  font-size: 13px;
+  color: var(--controls-text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
