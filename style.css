@@ -151,6 +151,49 @@ body {
   transition: background 0.25s, border-color 0.25s;
 }
 
+/* ---- Selector de skin ---- */
+.skin-select {
+  background: var(--kbd-bg);
+  border: 1px solid var(--kbd-border);
+  border-radius: 4px;
+  padding: 6px 8px;
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--kbd-text);
+  cursor: pointer;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+}
+
+.skin-select:hover,
+.skin-select:focus {
+  border-color: #7aa2f7;
+  outline: none;
+}
+
+/* ---- Skins: cada uno reescribe el aspecto del tablero ---- */
+body.skin-neon {
+  --canvas-bg: #050505;
+  --border: #113a3a;
+  --grid-line: #0c2626;
+}
+
+body.skin-neon #board,
+body.skin-neon #next-canvas {
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.25), 0 0 40px rgba(0, 0, 0, 0.6);
+}
+
+body.skin-pastel {
+  --canvas-bg: #fbf6ff;
+  --border: #ddccef;
+  --grid-line: #efe4f7;
+}
+
+body.skin-pixel {
+  --canvas-bg: #1c1712;
+  --border: #4a3d2a;
+  --grid-line: #2c2418;
+}
+
 /* ---- Controles ---- */
 .controls ul {
   list-style: none;
